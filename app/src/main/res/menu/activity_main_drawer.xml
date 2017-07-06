@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_last_news"
+            android:icon="@drawable/ic_label_black_24dp"
+            android:title="@string/fragment_one" />
+        <item
+            android:id="@+id/nav_mix_news"
+            android:icon="@drawable/ic_label_black_24dp"
+            android:title="@string/fragment_two" />
+        <item
+            android:id="@+id/nav_sport_news"
+            android:icon="@drawable/ic_label_black_24dp"
+            android:title="@string/fragment_three" />
+
+        <item
+            android:id="@+id/nav_fav_news"
+            android:icon="@drawable/ic_label_black_24dp"
+            android:title="@string/fragment_five" />
+
+        <!--<item-->
+            <!--android:id="@+id/nav_settings"-->
+            <!--android:icon="@drawable/ic_label_black_24dp"-->
+            <!--android:title="@string/nav_settings" />-->
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_news_setting"
+                android:title="@string/setting_menu" />
+            <item
+                android:id="@+id/nav_news_source"
+                android:title="@string/sources" />
+        </menu>
+    </item>
+
+</menu>

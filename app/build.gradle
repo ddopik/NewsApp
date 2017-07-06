@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.codecourt.ddopikmain.seedapplication"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 6
+        versionName "1.0"
+        multiDexEnabled = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        useLibrary 'org.apache.http.legacy'
+        apply plugin: 'realm-android'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    ///faceBook Sdk
+    compile 'com.android.support:multidex:1.0.0'
+    ////butterKnif
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    // XML to jason
+    compile 'com.github.smart-fun:XmlToJson:1.2.0'    // add this line
+
+///Dagger
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    compile 'com.google.dagger:dagger:2.8'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+// Glide image library
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    ///Styled btn
+    compile 'com.github.jd-alexander:LikeButton:0.2.0'
+//
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:animated-vector-drawable:25.3.1'
+    compile 'com.android.support:mediarouter-v7:25.3.1'
+//    compile 'com.android.support:appcompat-v7:23.4.0'
+//    compile 'com.android.support:design:23.4.0'
+//    compile 'com.android.support:support-v4:23.4.0'
+
+
+    compile 'com.google.code.gson:gson:2.6.2'
+    //Volly
+    compile 'com.android.volley:volley:1.0.0'
+    testCompile 'junit:junit:4.12'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    ///stetho
+    ///  compile 'com.uphyca:stetho_realm:0.9.0'
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'com.uphyca:stetho_realm:2.0.0'
+    //Magnifier
+    compile 'com.google.android.gms:play-services:10.2.1'
+    //////// EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+
+////My custom littleLibrary
+    compile project(":mylittlelibrary")
+    compile project(":AssestLib-module")
+
+    testCompile 'junit:junit:4.12'
+
+}
+apply plugin: 'com.google.gms.google-services'

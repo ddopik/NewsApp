@@ -1,0 +1,53 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+
+
+
+        <ImageButton
+            android:id="@+id/face_book_btn"
+            style="@style/Widget.AppCompat.ActionButton"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:src="@drawable/facebook_48" />
+
+        <ImageButton
+            android:id="@+id/whatsapp_btn2"
+            style="@style/Widget.AppCompat.ActionButton"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:src="@drawable/whats_app_50" />
+
+
+
+        <ImageButton
+            android:id="@+id/share_btn"
+            style="@style/Widget.AppCompat.ActionButton"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:src="@drawable/share_48" />
+
+        <com.like.LikeButton
+            app:icon_type="star"
+            app:icon_size="24dp"
+            android:id="@+id/star_fav_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>
