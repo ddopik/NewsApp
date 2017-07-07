@@ -29,10 +29,6 @@ public abstract class MultiSelectListAdapter extends BaseAdapter {
     private RealmResults sourcesList;
     final boolean isSelected[];
 
-   public abstract Context getContainerContext();
-
-    public abstract RealmResults<?> getSourcesList();
-
     public abstract boolean[] getDefaultList(RealmResults<?> sourceList);
 
     //    {

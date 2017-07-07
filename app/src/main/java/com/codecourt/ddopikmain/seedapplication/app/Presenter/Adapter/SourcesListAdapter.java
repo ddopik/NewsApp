@@ -38,16 +38,6 @@ public class SourcesListAdapter extends MultiSelectListAdapter {
 
 
     @Override
-    public Context getContainerContext() {
-        return homeActivity;
-    }
-
-    @Override
-    public RealmResults getSourcesList() {
-        return sourcesList;
-    }
-
-    @Override
     public boolean[] getDefaultList(RealmResults sourceList) {
         RealmResults<SourceNews> list=sourceList;
         this.isSelected = new boolean[sourceList.size()];
@@ -81,94 +71,10 @@ public class SourcesListAdapter extends MultiSelectListAdapter {
     }
     public boolean[] getSelectedFlags() {
         return isSelected;
-    }
+    } ///should be ubstract
 
 
 
 
-//    @Override
-//    public View getView(final int position, View convertView, ViewGroup parent) {
-//
-//        final ViewHolder viewHolder;
-//        boolean defaultSource;
-//        MainApp.realm.beginTransaction();
-//        SourceNews sourceNews = MainApp.realm.where(SourceNews.class).equalTo("sourceID", position).findFirst();
-//        defaultSource = sourceNews.isDefaultSource();
-//        MainApp.realm.commitTransaction();
-//
-//        if (convertView == null) {
-//            convertView = LayoutInflater.from(this.homeActivity).inflate(R.layout.source_item, null);
-//            viewHolder = new ViewHolder(convertView);
-//            viewHolder.sourseListContainer = (LinearLayout) convertView.findViewById(R.id.source_row_container);
-//            viewHolder.source_name = (CheckedTextView) convertView.findViewById(R.id.row_list_checkedtextview);
-//            viewHolder.newsImage = (ImageView) convertView.findViewById(R.id.row_list_checkbox_image);
-//
-//            convertView.setTag(viewHolder);
-//        } else {
-//            viewHolder = (ViewHolder) convertView.getTag();
-//        }
-//
-//        viewHolder.source_name.setText(this.sourcesList.get(position).getSourceName());
-//
-////        Log.i("flag ", "Index before IF # --->" + defaultSource);
-//        if (defaultSource) {
-//            viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(homeActivity, R.drawable.set_check));
-//            viewHolder.sourseListContainer.setBackgroundColor(Color.parseColor("#F16585"));
-//                    viewHolder.source_name.setChecked(true);
-////            Log.i("flag ","WithOutClick defaultSource"+"if (true)   --->"+(defaultSource)+"------------>"+defaultSource);
-//
-//        } else {
-//            viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(homeActivity, R.drawable.set_uncheck));
-//            viewHolder.sourseListContainer.setBackgroundResource(0);
-//                    viewHolder.source_name.setChecked(false);
-//
-//        }
-//
-//        viewHolder.sourseListContainer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // set the check text view
-//                boolean flag = viewHolder.source_name.isChecked();
-////                viewHolder.source_name.setChecked(!flag);
-//                isSelected[position] = !isSelected[position];
-//                Log.i("onClick ","Flag is  --->"+flag);
-//                if (viewHolder.source_name.isChecked()) {
-//                    viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(homeActivity, R.drawable.set_uncheck));
-//                    viewHolder.sourseListContainer.setBackgroundResource(0);
-//                    viewHolder.source_name.setChecked(false);
-//                } else {
-//                    viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(homeActivity, R.drawable.set_check));
-//                    viewHolder.sourseListContainer.setBackgroundColor(Color.parseColor("#F16585"));
-//                    viewHolder.source_name.setChecked(true);
-//
-//                }
-//
-//            }
-//        });
-//
-//
-//        return convertView;
-//    }
-//
-//    public boolean[] getSelectedFlags() {
-////                    Log.i("flag ","Index before selected --->"+this.isSelected[0]);
-////                    Log.i("flag ","Index before selected --->"+this.isSelected[1]);
-////                    Log.i("flag ","Index before selected --->"+this.isSelected[2]);
-////                    Log.i("flag ","Index before selected --->"+this.isSelected[3]);
-//        return isSelected;
-//    }
 
-
-//    static class ViewHolder {
-//        @BindView(R.id.source_row_container)
-//        LinearLayout sourseListContainer;
-//        @BindView(R.id.row_list_checkedtextview)
-//        CheckedTextView source_name;
-//        @BindView(R.id.row_list_checkbox_image)
-//        ImageView newsImage;
-//
-//        public ViewHolder(View view) {
-//            ButterKnife.bind(this, view);
-//        }
-//    }
 }
