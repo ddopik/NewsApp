@@ -92,6 +92,7 @@ public class NewsNetWorkController {
 
 
         }
+        activityContainer.getFeedListAdapter().notifyDataSetChanged();
         activityContainer.getSwipeRefreshLayout().setRefreshing(false);
     }
 
@@ -141,7 +142,7 @@ public class NewsNetWorkController {
 
     private void updateFragmentAdapter(ViewPager_Fragment_ident activityContainer, int itemsCat, List<HashMap> defaultSources, int sourcePostions) {
         activityContainer.getFeedListItems().addAll(newsItemModel.getFeedItem(itemsCat, Integer.parseInt(defaultSources.get(sourcePostions).get("catID").toString())));
-        activityContainer.getFeedListAdapter().notifyDataSetChanged();
+//        activityContainer.getFeedListAdapter().notifyDataSetChanged();
         Log.e("NewsNetWorkController", "---->Adapter NotifyListner Called with " + newsItemModel.getFeedItem(itemsCat, Integer.parseInt(defaultSources.get(sourcePostions).get("catID").toString())).size() + " item");
     }
 }
