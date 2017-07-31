@@ -29,7 +29,7 @@ import io.realm.RealmConfiguration;
 
 ///this is (Application) class will provide Dagger Depandaces
 // for all activites as our application Running
-public class MainApp extends Application {
+public class MainApp extends Application  {
 
     private AppComponent appComponent;
     public static MainApp app;
