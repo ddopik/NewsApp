@@ -50,6 +50,7 @@ public class MainApp extends Application  {
 //        deleteCache(app);   ///for developing
         SharedPreferences.Editor editor2 = getApplicationContext().getSharedPreferences(SittingActivity_sharedPreferance, MODE_PRIVATE).edit();
         editor2.putString("notification_switch","true");
+        editor2.putString("source_switch","true");
         editor2.commit();
 
         VolleySingleton.appContext=app;
