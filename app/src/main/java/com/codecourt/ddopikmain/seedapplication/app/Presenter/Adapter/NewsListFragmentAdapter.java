@@ -98,48 +98,55 @@ public class NewsListFragmentAdapter extends BaseAdapter {
             this.imageLoader = MainApp.mImageLoader;
         }
 
-        FeedItem item = feedItems.get(position);
-        newsListViewHolder.name.setText(item.getName());
-        newsListViewHolder.timestamp.setText(item.getTimeStamp());
+        try {
+            FeedItem item = feedItems.get(position);
+            newsListViewHolder.name.setText(item.getName());
+            newsListViewHolder.timestamp.setText(item.getTimeStamp());
 
 
 //         Chcek for empty News--->( MainText )
-        if (!TextUtils.isEmpty(item.getStatus())) {
-            newsListViewHolder.statusMsg.setText(item.getStatus());
+            if (!TextUtils.isEmpty(item.getStatus())) {
+                newsListViewHolder.statusMsg.setText(item.getStatus());
 //            statusMsg.setVisibility(View.VISIBLE);
-        }
+            }
 
 
-        if (item.isFav()) {
-            newsListViewHolder.favBtn.setLiked(true);
-        } else {
-            newsListViewHolder.favBtn.setLiked(false);
-        }
+            if (item.isFav()) {
+                newsListViewHolder.favBtn.setLiked(true);
+            } else {
+                newsListViewHolder.favBtn.setLiked(false);
+            }
 
 
 
 
-        // user profile pic
-        //Sets URL of the image that should be loaded into this view.
-        // Note that calling this will immediately either set the cached image (if available) or the default
-        newsListViewHolder.profilePic.setImageUrl(item.getProfilePic(), imageLoader);
-        SharedPreferences prefs = MainApp.app.getSharedPreferences(SittingActivity_sharedPreferance, MODE_PRIVATE);
-        String restoredText = prefs.getString("source_switch","false");
-        // Feed Main image
-        if (item.getImge() != null && restoredText.equals("true")) {
-            newsListViewHolder.feedImageView.setImageUrl(item.getImge(), imageLoader);
-            newsListViewHolder.feedImageView.setVisibility(View.VISIBLE);
-            newsListViewHolder.feedImageView.setResponseObserver(new FeedImageView.ResponseObserver() {
-                @Override
-                public void onError() {
-                }
+            // user profile pic
+            //Sets URL of the image that should be loaded into this view.
+            // Note that calling this will immediately either set the cached image (if available) or the default
+            newsListViewHolder.profilePic.setImageUrl(item.getProfilePic(), imageLoader);
+            SharedPreferences prefs = MainApp.app.getSharedPreferences(SittingActivity_sharedPreferance, MODE_PRIVATE);
+            String restoredText = prefs.getString("source_switch","false");
+            // Feed Main image
+            if (item.getImge() != null && restoredText.equals("true")) {
+                newsListViewHolder.feedImageView.setImageUrl(item.getImge(), imageLoader);
+                newsListViewHolder.feedImageView.setVisibility(View.VISIBLE);
+                newsListViewHolder.feedImageView.setResponseObserver(new FeedImageView.ResponseObserver() {
+                    @Override
+                    public void onError() {
+                    }
 
-                @Override
-                public void onSuccess() {
-                }
-            });
-        } else {
-            newsListViewHolder.feedImageView.setVisibility(View.GONE);
+                    @Override
+                    public void onSuccess() {
+                    }
+                });
+            } else {
+                newsListViewHolder.feedImageView.setVisibility(View.GONE);
+            }
+
+
+        }catch (Exception e)
+        {
+            Log.e("NewsListFragmentAdapter","Error here--->"+e.getMessage());
         }
 
         return convertView;

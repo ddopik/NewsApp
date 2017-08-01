@@ -52,7 +52,7 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
     private ListView listView;
     private ArrayList<FeedItem> feedItems;
     private SourceListModel sourceListModel;
-    private List<HashMap> defaultSources;
+    private List<HashMap> defaultSourcesCat;
     private View mainView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Unbinder unbinder;
@@ -116,6 +116,7 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
             listView.setNestedScrollingEnabled(true);
         }
 
+        listAdapter = new NewsListFragmentAdapter(newsNetWorkController);
         listAdapter.setHomeActivity(getActivity());
         feedItems = new ArrayList<FeedItem>();
         listAdapter.setFeedItems(feedItems);
@@ -133,7 +134,6 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
 
              messageView.setFeedItem(feedItems.get(arg2));
             ((MainActivity) getActivity()).launchSingleNewsFragment();
-
         }
 
 
@@ -141,11 +141,27 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
     public void loadData() {
         ((MainActivity) getActivity()).connectionNotify();
         this.sourceListModel = new SourceListModel();
-        defaultSources = sourceListModel.getSourceCat(1);
-        Log.e("FragmentOne", "Selected Cat----->" + defaultSources.size());
         getFeedListItems().clear(); ///clear all data before calling adapter Again
-        newsNetWorkController.StreamJSON(this,defaultSources,1);
-        listView.setOnItemClickListener(myListViewClicked);
+        defaultSourcesCat = sourceListModel.getSourceCat(1);
+        if(sourceListModel.isDefaultSources() )
+        {
+            Log.e("FragmentTwo", "Selected Cat----->" + defaultSourcesCat.size());
+            newsNetWorkController.StreamJSON(this, defaultSourcesCat, 1);
+            listView.setOnItemClickListener(myListViewClicked);
+            if( defaultSourcesCat.size()<= 0) {
+
+                getFeedListAdapter().notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+        else
+        {
+
+            Toast.makeText(getActivity(),"Please Select at least on News Resource",Toast.LENGTH_LONG).show();
+            getFeedListAdapter().notifyDataSetChanged();
+            swipeRefreshLayout.setRefreshing(false);
+
+        }
     }
 
 
@@ -160,7 +176,7 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
     @Override
     public void onRefresh() {
 
-        Toast.makeText(getActivity(), "Refreashed", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "Refreashed", Toast.LENGTH_SHORT).show();
         this.loadData();
     }
 

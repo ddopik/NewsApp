@@ -5,6 +5,8 @@ import com.codecourt.ddopikmain.seedapplication.app.Dagger.Componentes.AppCompon
 
 import com.codecourt.ddopikmain.seedapplication.app.Dagger.Componentes.DaggerNewsControllerComponent;
 import com.codecourt.ddopikmain.seedapplication.app.Dagger.Componentes.NewsControllerComponent;
+import com.codecourt.ddopikmain.seedapplication.app.Model.SourceListModel;
+import com.codecourt.ddopikmain.seedapplication.app.Model.main_table.FeedItem;
 import com.codecourt.ddopikmain.seedapplication.app.Presenter.Adapter.ViewPagerAdapter;
 import com.codecourt.ddopikmain.seedapplication.app.Presenter.AppConfig.MainApp;
 import com.codecourt.ddopikmain.seedapplication.app.Presenter.AppConfig.NotificationConfig;
@@ -39,9 +41,14 @@ import com.codecourt.ddopikmain.seedapplication.app.Presenter.NavigationDrawerPr
 import com.codecourt.ddopikmain.seedapplication.app.Presenter.EventBusMessage.ProgressState;
 import com.codecourt.ddopikmain.seedapplication.app.View.SettingMenu.SittingActivity;
 import com.codecourt.ddopikmain.seedapplication.R;
+import com.codecourt.ddopikmain.seedapplication.app.View.ViewIdenity.ViewPager_Fragment_ident;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -57,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public ViewPager viewPager;
     private ViewPagerAdapter pagerAdapter;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private SourceListModel sourceListModel ;
     @BindView(R.id.coordinator_layout) CoordinatorLayout coordinator_layout_container;
     @BindView(R.id.news_container)
     public LinearLayout news_container;
@@ -244,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
             snackbar.show();
         }
     }
+
+
 
 
     protected void setupInjection() {

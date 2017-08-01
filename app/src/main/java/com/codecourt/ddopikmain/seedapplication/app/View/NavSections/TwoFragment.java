@@ -47,7 +47,7 @@ public class TwoFragment extends android.support.v4.app.Fragment implements View
     private ListView listView;
     private ArrayList<FeedItem> feedItems;
     private SourceListModel sourceListModel;
-    private List<HashMap> defaultSources;
+    private List<HashMap> defaultSourcesCat;
     private View mainView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -110,18 +110,7 @@ public class TwoFragment extends android.support.v4.app.Fragment implements View
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-//        swipeRefreshLayout.post(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        swipeRefreshLayout.setRefreshing(true);
-//                                        fetchMovies();
-//                                    }
-//                                }
-//        );
+
 
         return mainView;
     }
@@ -140,25 +129,39 @@ public class TwoFragment extends android.support.v4.app.Fragment implements View
     public void onResume() {
         Log.e("FragmentTwo", "---->FragmentTwo onResumed");
         super.onResume();
-        this.sourceListModel = new SourceListModel();
         this.loadData();
     }
     @Override
     public void onRefresh() {
 
-        Toast.makeText(getActivity(),"Fragment Two Refreashed",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(),"Fragment Two Refreashed",Toast.LENGTH_SHORT).show();
         this.loadData();
     }
 
-    public void loadData()
-    {
+    public void loadData() {
         ((MainActivity) getActivity()).connectionNotify();
         this.sourceListModel = new SourceListModel();
-        defaultSources = sourceListModel.getSourceCat(2);
-        Log.e("FragmentTwo","Selected Cat----->"+defaultSources.size());
-        getFeedListItems().clear();
-        newsNetWorkController.StreamJSON(this, defaultSources,2);
-        listView.setOnItemClickListener(myListViewClicked);
+        getFeedListItems().clear(); ///clear all data before calling adapter Again
+        defaultSourcesCat = sourceListModel.getSourceCat(2);
+        if(sourceListModel.isDefaultSources() )
+        {
+            Log.e("FragmentTwo", "Selected Cat----->" + defaultSourcesCat.size());
+            newsNetWorkController.StreamJSON(this, defaultSourcesCat, 2);
+            listView.setOnItemClickListener(myListViewClicked);
+            if( defaultSourcesCat.size()<= 0) {
+
+                getFeedListAdapter().notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+        else
+        {
+
+            Toast.makeText(getActivity(),"Please Select at least on News Resource",Toast.LENGTH_LONG).show();
+            getFeedListAdapter().notifyDataSetChanged();
+            swipeRefreshLayout.setRefreshing(false);
+
+        }
     }
     @Subscribe(threadMode = ThreadMode.MAIN )
     public void glopalRefreash(ProgressState progressState)

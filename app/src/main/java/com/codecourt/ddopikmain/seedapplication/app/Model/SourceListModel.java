@@ -32,6 +32,7 @@ public class SourceListModel {
 
     }
 
+
     public RealmResults getSourcesList() { ///Gitting all sources
         try {
             this.sourcesList = MainApp.realm.where(SourceNews.class).findAll();

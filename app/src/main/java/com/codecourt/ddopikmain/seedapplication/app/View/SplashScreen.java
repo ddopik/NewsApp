@@ -36,8 +36,8 @@ public class SplashScreen extends AppCompatActivity {
 
     public void splashStart() {
         mprogressBar = (ProgressBar) findViewById(R.id.circular_progress_bar);
-        ObjectAnimator anim = ObjectAnimator.ofInt(mprogressBar, "progress", 0,23);
-        anim.setDuration(15000);
+        ObjectAnimator anim = ObjectAnimator.ofInt(mprogressBar, "progress", 0,25);
+        anim.setDuration(10000);
         anim.setInterpolator(new DecelerateInterpolator());
         anim.start();
 

@@ -19,6 +19,8 @@ import com.example.networkmodule.VolleySingleton;
 import com.facebook.stetho.Stetho;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
+import java.io.File;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -30,7 +32,7 @@ import io.realm.RealmConfiguration;
 ///this is (Application) class will provide Dagger Depandaces
 // for all activites as our application Running
 public class MainApp extends Application  {
-
+//
     private AppComponent appComponent;
     public static MainApp app;
     public static Realm realm;
@@ -45,7 +47,7 @@ public class MainApp extends Application  {
         this.app = this;
         initializeDepInj(); ///intializing Dagger Dependancy
         intializeRealmInstance(); //intializing Realm Config Instance
-
+//        deleteCache(app);   ///for developing
         SharedPreferences.Editor editor2 = getApplicationContext().getSharedPreferences(SittingActivity_sharedPreferance, MODE_PRIVATE).edit();
         editor2.putString("notification_switch","true");
         editor2.commit();
@@ -119,15 +121,28 @@ public class MainApp extends Application  {
         Log.e("MainApp","ConnectionState---->"+connected+activeNetworkInfo);
         return connected;
     }
+    public static void deleteCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e) {}
+    }
 
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if(dir!= null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
+        }
+    }
 }
 
-//Todo 1- define App launcher Icon #####
-//Todo 2-apply Splash Screen and progress Bar for first intialization ####
-//Todo 3- handle MainActivity screen after cossing app resources ### low devive required
-//Todo 4- add faceBook integration ####
-//Todo 5-add WahtsApp inticaration ####
-//Todo 6-Share My app intent       ####
-//Todo 7- App layout adjustment
-//Todo 8- subscibe in NewsNetWorkController and publich in main activity the connection state
-// Todo 9-Splash screen progress par dependant

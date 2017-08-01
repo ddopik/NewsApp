@@ -48,7 +48,7 @@ public class ThreeFragment extends android.support.v4.app.Fragment implements Vi
     private ListView listView;
     private ArrayList<FeedItem> feedItems ;
     private SourceListModel sourceListModel;
-    private List<HashMap> defaultSources;
+    private List<HashMap> defaultSourcesCat;
     private View mainView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -107,18 +107,6 @@ public class ThreeFragment extends android.support.v4.app.Fragment implements Vi
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-//        swipeRefreshLayout.post(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        swipeRefreshLayout.setRefreshing(true);
-//                                        fetchMovies();
-//                                    }
-//                                }
-//        );
 
         return mainView;
     }
@@ -146,18 +134,35 @@ public class ThreeFragment extends android.support.v4.app.Fragment implements Vi
     @Override
     public void onRefresh() {
 
-        Toast.makeText(getActivity(),"Fragment Three Refreashed",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(),"Fragment Three Refreashed",Toast.LENGTH_SHORT).show();
+
         this.loadData();
     }
 
     public void loadData() {
         ((MainActivity) getActivity()).connectionNotify();
         this.sourceListModel = new SourceListModel();
-        defaultSources = sourceListModel.getSourceCat(3);
-        Log.e("FragmentOne", "Selected Cat----->" + defaultSources.size());
         getFeedListItems().clear(); ///clear all data before calling adapter Again
-        newsNetWorkController.StreamJSON(this,defaultSources,3);
-        listView.setOnItemClickListener(myListViewClicked);
+        defaultSourcesCat = sourceListModel.getSourceCat(3);
+        if(sourceListModel.isDefaultSources() )
+        {
+            Log.e("FragmentThree", "Selected Cat----->" + defaultSourcesCat.size());
+            newsNetWorkController.StreamJSON(this, defaultSourcesCat, 3);
+            listView.setOnItemClickListener(myListViewClicked);
+            if( defaultSourcesCat.size()<= 0) {
+
+                getFeedListAdapter().notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+        else
+        {
+
+            Toast.makeText(getActivity(),"Please Select at least on News Resource",Toast.LENGTH_LONG).show();
+            getFeedListAdapter().notifyDataSetChanged();
+            swipeRefreshLayout.setRefreshing(false);
+
+        }
     }
     @Subscribe(threadMode = ThreadMode.MAIN )
     public void glopalRefreash(ProgressState progressState)

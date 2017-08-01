@@ -132,7 +132,7 @@ public class FourFragment extends android.support.v4.app.Fragment implements Vie
     @Override
     public void onRefresh() {
 
-        Toast.makeText(getActivity(), "Refreashed", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "Refreashed", Toast.LENGTH_SHORT).show();
         this.loadData();
     }
 

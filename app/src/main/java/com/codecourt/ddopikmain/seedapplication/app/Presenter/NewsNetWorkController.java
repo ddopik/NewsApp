@@ -92,8 +92,9 @@ public class NewsNetWorkController {
 
 
         }
-        activityContainer.getFeedListAdapter().notifyDataSetChanged();
-        activityContainer.getSwipeRefreshLayout().setRefreshing(false);
+
+
+
     }
 
 
@@ -110,7 +111,6 @@ public class NewsNetWorkController {
                 if (response != null) {
                     XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
                     xmlToJson.toString();
-
                     urlObjResponse = xmlToJson.toJson();
                     NewsNetWorkController.this.saveCallBack(urlObjResponse, activityContainer, defaultSources, itemsCat, sourcePosition);
 
@@ -121,11 +121,13 @@ public class NewsNetWorkController {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
+                activityContainer.getFeedListAdapter().notifyDataSetChanged();
+                activityContainer.getSwipeRefreshLayout().setRefreshing(false);
             }
         });
         // Adding request to volley request queue
         MainApp.mRequestQueue.add(jsonReq);
-    }
+    }////
 
 
     private void saveCallBack(JSONObject urlObjResponse, ViewPager_Fragment_ident activityContainer, List<HashMap> defaultSources, int itemsCat, int sourcePostions)
@@ -143,6 +145,8 @@ public class NewsNetWorkController {
     private void updateFragmentAdapter(ViewPager_Fragment_ident activityContainer, int itemsCat, List<HashMap> defaultSources, int sourcePostions) {
         activityContainer.getFeedListItems().addAll(newsItemModel.getFeedItem(itemsCat, Integer.parseInt(defaultSources.get(sourcePostions).get("catID").toString())));
         Log.e("NewsNetWorkController", "---->Adapter NotifyListner Called with " + newsItemModel.getFeedItem(itemsCat, Integer.parseInt(defaultSources.get(sourcePostions).get("catID").toString())).size() + " item");
+        activityContainer.getFeedListAdapter().notifyDataSetChanged();
+        activityContainer.getSwipeRefreshLayout().setRefreshing(false);
     }
 }
 
