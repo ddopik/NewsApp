@@ -108,13 +108,13 @@ public abstract class MultiSelectListAdapter extends BaseAdapter {
 
 //        Log.i("flag ", "Index before IF # --->" + defaultSource);
         if (defaultSource) {
-            viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_check));
+//            viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_check));
             viewHolder.sourseListContainer.setBackgroundColor(Color.parseColor("#F16585"));
             viewHolder.source_name.setChecked(true);
 //            Log.i("flag ","WithOutClick defaultSource"+"if (true)   --->"+(defaultSource)+"------------>"+defaultSource);
 
         } else {
-            viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_uncheck));
+//            viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_uncheck));
             viewHolder.sourseListContainer.setBackgroundResource(0);
             viewHolder.source_name.setChecked(false);
 
@@ -129,11 +129,11 @@ public abstract class MultiSelectListAdapter extends BaseAdapter {
                 isSelected[position] = !isSelected[position];
                 Log.i("onClick ", "Flag is  --->" + flag);
                 if (viewHolder.source_name.isChecked()) {
-                    viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_uncheck));
+//                    viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_uncheck));
                     viewHolder.sourseListContainer.setBackgroundResource(0);
                     viewHolder.source_name.setChecked(false);
                 } else {
-                    viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_check));
+//                    viewHolder.newsImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.set_check));
                     viewHolder.sourseListContainer.setBackgroundColor(Color.parseColor("#F16585"));
                     viewHolder.source_name.setChecked(true);
 
