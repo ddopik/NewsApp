@@ -113,7 +113,6 @@ public class NewsNetWorkController {
                     xmlToJson.toString();
                     urlObjResponse = xmlToJson.toJson();
                     NewsNetWorkController.this.saveCallBack(urlObjResponse, activityContainer, defaultSources, itemsCat, sourcePosition);
-
                     Log.e("NewsNetWorkController", "Life---Parsed Xml------>" + new JSONObject());
                 }
             }

@@ -1,5 +1,6 @@
 package com.codecourt.ddopikmain.seedapplication.app.View.NavSections;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -79,9 +80,16 @@ public class FourFragment extends android.support.v4.app.Fragment implements Vie
 
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        setupInjection(); ///intiazlizing Dagger
+    }
+
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupInjection(); ///intiazlizing Dagger
+//        setupInjection(); ///intiazlizing Dagger
 
     }
 
@@ -102,7 +110,7 @@ public class FourFragment extends android.support.v4.app.Fragment implements Vie
 
         listAdapter.setHomeActivity(getActivity());
         feedItems = new ArrayList<FeedItem>();
-        feedItems2=newsItemModel.getFavFeedItem();
+        feedItems2 = newsItemModel.getFavFeedItem();
         listAdapter.setFeedItems(feedItems2);
         listView.setAdapter(listAdapter); /// I Know the Adapter is Empty now/// but the idea is to notify adapter when we have call back From Cash or From Volly
 
@@ -153,7 +161,7 @@ public class FourFragment extends android.support.v4.app.Fragment implements Vie
 //        Log.e("FragmentFour", "Selected Cat----->" + defaultSources.size());
         ((MainActivity) getActivity()).connectionNotify();
         getFeedListItems().clear(); ///clear all data before calling adapter Again
-        feedItems2=newsItemModel.getFavFeedItem();
+        feedItems2 = newsItemModel.getFavFeedItem();
         listAdapter.setFeedItems(feedItems2);
         listAdapter.notifyDataSetChanged();
         listView.setOnItemClickListener(myListViewClicked);
@@ -164,9 +172,8 @@ public class FourFragment extends android.support.v4.app.Fragment implements Vie
 
         try {
             ((MainActivity) getActivity()).newsControllerComponent.inject(this);
-        }catch (Exception e)
-        {
-            Log.e("TwoFragment","------>Dagger injetion Errror");
+        } catch (Exception e) {
+            Log.e("TwoFragment", "------>Dagger injetion Errror");
         }
     }
 

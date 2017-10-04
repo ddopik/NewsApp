@@ -1,5 +1,6 @@
 package com.codecourt.ddopikmain.seedapplication.app.View.NavSections;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -94,9 +95,16 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        setupInjection(); ///intiazlizing Dagger
+    }
+
+
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupInjection(); ///intiazlizing Dagger
         EventBus.getDefault().register(this);
 
     }
@@ -145,8 +153,14 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
         defaultSourcesCat = sourceListModel.getSourceCat(1);
         if(sourceListModel.isDefaultSources() )
         {
-            Log.e("FragmentTwo", "Selected Cat----->" + defaultSourcesCat.size());
-            newsNetWorkController.StreamJSON(this, defaultSourcesCat, 1);
+            Log.e("FragmentOne", "Selected Cat----->" + defaultSourcesCat.size());
+            try {
+                newsNetWorkController.StreamJSON(this, defaultSourcesCat, 1);
+            }
+            catch (Exception e)
+            {
+                Log.e("Fragment One","Main activity injected  referance wiped out Restart app");
+            }
             listView.setOnItemClickListener(myListViewClicked);
             if( defaultSourcesCat.size()<= 0) {
 
@@ -176,7 +190,6 @@ public class OneFragment extends android.support.v4.app.Fragment implements View
     @Override
     public void onRefresh() {
 
-//        Toast.makeText(getActivity(), "Refreashed", Toast.LENGTH_SHORT).show();
         this.loadData();
     }
 

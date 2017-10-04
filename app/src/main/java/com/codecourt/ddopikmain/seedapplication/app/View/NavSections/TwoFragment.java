@@ -1,5 +1,6 @@
 package com.codecourt.ddopikmain.seedapplication.app.View.NavSections;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -81,11 +82,19 @@ public class TwoFragment extends android.support.v4.app.Fragment implements View
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return swipeRefreshLayout;
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        setupInjection(); ///intiazlizing Dagger
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        setupInjection(); ///intiazlizing Dagger
+//        setupInjection(); ///intiazlizing Dagger
         Log.e("FragmentTwo", "---->FragmentTwo onCreate");
     }
 
