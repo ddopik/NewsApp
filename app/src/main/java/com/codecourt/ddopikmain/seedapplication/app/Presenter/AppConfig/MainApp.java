@@ -47,7 +47,7 @@ public class MainApp extends Application  {
         this.app = this;
         initializeDepInj(); ///intializing Dagger Dependancy
         intializeRealmInstance(); //intializing Realm Config Instance
-//        deleteCache(app);   ///for developing        ##################
+        deleteCache(app);   ///for developing        ##################
         SharedPreferences.Editor editor2 = getApplicationContext().getSharedPreferences(SittingActivity_sharedPreferance, MODE_PRIVATE).edit();
         editor2.putString("notification_switch","true");
         editor2.putString("source_switch","true");
@@ -95,7 +95,7 @@ public class MainApp extends Application  {
         Realm.init(app); // Initialize Realm. Should only be done once when the application starts.
         RealmConfiguration realmConfig = new RealmConfiguration.Builder().build();
 
-//        Realm.deleteRealm(realmConfig); // Delete Realm between app restarts. #################
+        Realm.deleteRealm(realmConfig); // Delete Realm between app restarts. #################
 
 
         Realm.setDefaultConfiguration(realmConfig);

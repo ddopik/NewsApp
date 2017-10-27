@@ -21,22 +21,20 @@ import io.realm.Realm;
 public class GsonFeedParser {
 
 
+    String sourceImg;
     private JSONObject response;
-    private List<FeedItem> feedItems ;
+    private List<FeedItem> feedItems;
     private Realm relmInstance;
     private NewsItemModel newsItemModel;
-    String sourceImg;
 
     // @Inject use Module for grapgh inted of contructor for better illustration and underStand
     public GsonFeedParser() {
     }
 
 
+    public void saveObgToRealm(int itemsCat, int sourceCatId) {
 
-    public void saveObgToRealm(int itemsCat,int sourceCatId)
-    {
-
-        newsItemModel=new NewsItemModel();
+        newsItemModel = new NewsItemModel();
         try {
             JSONObject mainFeedObj = this.response.getJSONObject("rss").getJSONObject("channel");
             JSONArray itemsArray = mainFeedObj.getJSONArray("item");
@@ -44,50 +42,45 @@ public class GsonFeedParser {
                 JSONObject itemObj = itemsArray.getJSONObject(i);
                 FeedItem item = new FeedItem();
 
+//                Log.e("GsonFeedParser","---------->saveObgToRealm Trace"+itemObj.getString("pubDate"));
+
                 item.setId(itemObj.getString("title").length());
                 item.setName(itemObj.getString("title"));
                 ////// Image might be null sometimes//
                 String image = itemObj.isNull("enclosure") ? null : itemObj.getJSONObject("enclosure").getString("url");
                 item.setImge(image);
                 ///////////////
-                item.setTimeStamp(itemObj.isNull("pubDate") ? null : itemObj.getString("pubDate").trim());
+                if (! itemObj.isNull("pubDate")) {
+                    item.setTimeStamp(itemObj.getString("pubDate").trim());
+                }
+//                item.setTimeStamp(itemObj.isNull("pubDate") ? null : itemObj.getString("pubDate").trim());
                 item.setProfilePic(this.sourceImg);///<-------
                 String c = Html.fromHtml(itemObj.getString("description")).toString();
                 item.setStatus(c);
                 item.setUrl(itemObj.getString("link"));
                 item.setfK_sectionsID(itemsCat);
                 item.setfK_SourceCatID(sourceCatId);
-                Log.e("GsonFeedParser","itemsCat ="+itemsCat+" itemsSource Cat ="+sourceCatId);
+                Log.e("GsonFeedParser", "itemsCat =" + itemsCat + " itemsSource Cat =" + sourceCatId);
                 newsItemModel.saveFeedItemToRealm(item);
             }
 
 
-
-        }
-        catch (JSONException e) {
-            Log.e("JsonFeedPareser", "Cached--->Error Parsing And Saving URL",e.fillInStackTrace());
+        } catch (JSONException e) {
+            Log.e("JsonFeedPareser", "Cached--->Error Parsing And Saving URL", e.fillInStackTrace());
             e.printStackTrace();
             ///TODO must Display Event message NOtify that there is No data
         }
     }
 
 
-
-
-
     public JSONObject getResponse() {
         return response;
     }
 
-    public void setResponse(JSONObject response,String profileImg) {
+    public void setResponse(JSONObject response, String profileImg) {
         this.response = response;
-        this.sourceImg=profileImg;
+        this.sourceImg = profileImg;
     }
-
-
-
-
-
 
 
 }

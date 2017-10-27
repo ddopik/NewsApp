@@ -123,17 +123,17 @@ public class SingleNewsActivity extends android.support.v4.app.Fragment {
             if (item.getImge() != null) {
                 feedImageView.setImageUrl(item.getImge(), MainApp.mImageLoader);
                 feedImageView.setVisibility(View.VISIBLE);
+                singleNewsHeading.setText(item.getName());
+                description.setText(item.getStatus());
             } else {
                 feedImageView.setVisibility(View.GONE);
             }
         } catch (Exception e) {
-            Log.e("SingleNewsActivity","Error gitting SingleView---->"+e.getMessage());
+            Log.e("SingleNewsActivity","Error gitting Single News View---->"+e.getMessage());
 
         }
 
 
-        singleNewsHeading.setText(item.getName());
-        description.setText(item.getStatus());
 
 
 
